@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -11,7 +12,7 @@ namespace CoverAdd
         private UIElement child = null;
         private Point origin;
         private Point start;
-
+        
         private TranslateTransform GetTranslateTransform(UIElement element)
         {
             return (TranslateTransform)((TransformGroup)element.RenderTransform)
@@ -53,7 +54,9 @@ namespace CoverAdd
                 this.MouseMove += child_MouseMove;
                 this.PreviewMouseRightButtonDown += new MouseButtonEventHandler(
                   child_PreviewMouseRightButtonDown);
+                //this.SetCurrentValue(this., 0);
             }
+           
         }
 
         public void Reset()
@@ -81,7 +84,7 @@ namespace CoverAdd
                 var st = GetScaleTransform(child);
                 var tt = GetTranslateTransform(child);
 
-                double zoom = e.Delta > 0 ? .2 : -.2;
+                double zoom = e.Delta > 0 ? 0.05 : -0.05;
                 if (!(e.Delta > 0) && (st.ScaleX < .4 || st.ScaleY < .4))
                     return;
 
@@ -97,6 +100,9 @@ namespace CoverAdd
 
                 tt.X = abosuluteX - relative.X * st.ScaleX;
                 tt.Y = abosuluteY - relative.Y * st.ScaleY;
+
+                Console.WriteLine("Coordinate x: " + tt.X + " y: "+tt.Y);
+                Console.WriteLine("Fattore scala: "+st.ScaleX);
             }
         }
 
@@ -136,6 +142,9 @@ namespace CoverAdd
                     Vector v = start - e.GetPosition(this);
                     tt.X = origin.X - v.X;
                     tt.Y = origin.Y - v.Y;
+
+                    Console.WriteLine("Coordinate x: " + tt.X + " y: " + tt.Y);
+                    Console.WriteLine("Valore: ");
                 }
             }
         }
