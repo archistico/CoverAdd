@@ -84,10 +84,11 @@ namespace CoverAdd
 
         private void btnSalva_Click(object sender, RoutedEventArgs e)
         {
-            Rect rect = new Rect(retro.Child.RenderSize);
-            RenderTargetBitmap rtb = new RenderTargetBitmap((int)rect.Right,
-              (int)rect.Bottom, 96d, 96d, System.Windows.Media.PixelFormats.Default);
-            rtb.Render(retro.Child);
+            Rect rect = new Rect(fronte.RenderSize);
+            RenderTargetBitmap rtb = new RenderTargetBitmap((int)rect.Width,(int)rect.Height, 96d, 96d, System.Windows.Media.PixelFormats.Default);
+
+            rtb.Render(fronte.Child);
+            
             //endcode as PNG
             BitmapEncoder pngEncoder = new PngBitmapEncoder();
             pngEncoder.Frames.Add(BitmapFrame.Create(rtb));
@@ -97,7 +98,7 @@ namespace CoverAdd
 
             pngEncoder.Save(ms);
             ms.Close();
-            System.IO.File.WriteAllBytes("logo.png", ms.ToArray());
+            System.IO.File.WriteAllBytes("fronte.png", ms.ToArray());
             Console.WriteLine("Done");
         }
     }
