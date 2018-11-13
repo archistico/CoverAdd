@@ -31,6 +31,7 @@
             <Button x:Name="btnAllinea" Click="btnAllinea_Click">Allinea</Button>
             <Button x:Name="btnFronte" Click="btnFronte_Click">Fronte</Button>
             <Button x:Name="btnRetro">Retro</Button>
+            <Button x:Name="btnSalva" Click="btnSalva_Click">Salva</Button>
         </StackPanel>
     </Grid>
 </Window>

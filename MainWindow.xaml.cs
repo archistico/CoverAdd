@@ -48,11 +48,11 @@ namespace CoverAdd
 
         private void btnAllinea_Click(object sender, RoutedEventArgs e)
         {
+            
 
             var st = GetScaleTransform(fronte.Child);
             
             retro.Child.RenderTransformOrigin = new Point(0,0);
-
             
             ScaleTransform myScaleTransform = new ScaleTransform();
             myScaleTransform.ScaleY = st.ScaleX;
@@ -80,6 +80,25 @@ namespace CoverAdd
 
             // Associate the transforms to the object 
             retro.Child.RenderTransform = myTransformGroup;
+        }
+
+        private void btnSalva_Click(object sender, RoutedEventArgs e)
+        {
+            Rect rect = new Rect(retro.Child.RenderSize);
+            RenderTargetBitmap rtb = new RenderTargetBitmap((int)rect.Right,
+              (int)rect.Bottom, 96d, 96d, System.Windows.Media.PixelFormats.Default);
+            rtb.Render(retro.Child);
+            //endcode as PNG
+            BitmapEncoder pngEncoder = new PngBitmapEncoder();
+            pngEncoder.Frames.Add(BitmapFrame.Create(rtb));
+
+            //save to memory stream
+            System.IO.MemoryStream ms = new System.IO.MemoryStream();
+
+            pngEncoder.Save(ms);
+            ms.Close();
+            System.IO.File.WriteAllBytes("logo.png", ms.ToArray());
+            Console.WriteLine("Done");
         }
     }
 }
