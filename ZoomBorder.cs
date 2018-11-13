@@ -54,7 +54,6 @@ namespace CoverAdd
                 this.MouseMove += child_MouseMove;
                 this.PreviewMouseRightButtonDown += new MouseButtonEventHandler(
                   child_PreviewMouseRightButtonDown);
-                //this.SetCurrentValue(this., 0);
             }
            
         }
@@ -89,20 +88,17 @@ namespace CoverAdd
                     return;
 
                 Point relative = e.GetPosition(child);
-                double abosuluteX;
-                double abosuluteY;
+                double absoluteX;
+                double absoluteY;
 
-                abosuluteX = relative.X * st.ScaleX + tt.X;
-                abosuluteY = relative.Y * st.ScaleY + tt.Y;
+                absoluteX = relative.X * st.ScaleX + tt.X;
+                absoluteY = relative.Y * st.ScaleY + tt.Y;
 
                 st.ScaleX += zoom;
                 st.ScaleY += zoom;
 
-                tt.X = abosuluteX - relative.X * st.ScaleX;
-                tt.Y = abosuluteY - relative.Y * st.ScaleY;
-
-                Console.WriteLine("Coordinate x: " + tt.X + " y: "+tt.Y);
-                Console.WriteLine("Fattore scala: "+st.ScaleX);
+                tt.X = absoluteX - relative.X * st.ScaleX;
+                tt.Y = absoluteY - relative.Y * st.ScaleY;
             }
         }
 
@@ -142,9 +138,6 @@ namespace CoverAdd
                     Vector v = start - e.GetPosition(this);
                     tt.X = origin.X - v.X;
                     tt.Y = origin.Y - v.Y;
-
-                    Console.WriteLine("Coordinate x: " + tt.X + " y: " + tt.Y);
-                    Console.WriteLine("Valore: ");
                 }
             }
         }
