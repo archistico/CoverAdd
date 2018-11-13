@@ -108,37 +108,31 @@ namespace CoverAdd
             Console.WriteLine("renderSize width: " + (int)rfronte.Width);
             Console.WriteLine("renderSize height: " + (int)rfronte.Height);
 
-            /*
-            Rect rfronte = new Rect(fronte.RenderSize);
-            Rect rcfronte = new Rect(new Point(0,0), new Point(rect_fronte.Width, rect_fronte.Height));
+            string uriImg = "cover.jpg";
 
-            Console.WriteLine("rect width: "+ rfronte.Width+ " height: " + rfronte.Height);
-            Console.WriteLine("rectf width: " + rcfronte.Width + " height: " + rcfronte.Height);
+            BitmapImage src = new BitmapImage();
+            src.BeginInit();
+            src.UriSource = new Uri(uriImg, UriKind.Relative);
+            src.CacheOption = BitmapCacheOption.OnLoad;
+            src.EndInit();
 
-            RenderTargetBitmap rtb = new RenderTargetBitmap((int)rfronte.Width,(int)rfronte.Height, 96d, 96d, System.Windows.Media.PixelFormats.Default);
+            int w = (int)src.PixelWidth;
+            int h = (int)src.PixelHeight;
 
-            rtb.Render(fronte.Child);
-            
-            //endcode as PNG
-            BitmapEncoder pngEncoder = new PngBitmapEncoder();
-            pngEncoder.Frames.Add(BitmapFrame.Create(rtb));
+            Console.WriteLine("Cover width: " + w);
+            Console.WriteLine("Cover height: " + h);
 
-            //save to memory stream
-            System.IO.MemoryStream ms = new System.IO.MemoryStream();
 
-            pngEncoder.Save(ms);
-            ms.Close();
-            System.IO.File.WriteAllBytes("fronte.png", ms.ToArray());
-            Console.WriteLine("Done");
-            */
-            CropImage(0,0,300,300);
+            CropImage(uriImg,0,0,w,h);
+
+
         }
 
-        public void CropImage(int x, int y, int w, int h)
+        public void CropImage(string uriImg, int x, int y, int w, int h)
         {
             BitmapImage src = new BitmapImage();
             src.BeginInit();
-            src.UriSource = new Uri("cover.jpg", UriKind.Relative);
+            src.UriSource = new Uri(uriImg, UriKind.Relative);
             src.CacheOption = BitmapCacheOption.OnLoad;
             src.EndInit();
 
